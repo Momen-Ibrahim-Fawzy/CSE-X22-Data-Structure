@@ -75,7 +75,7 @@ public class Hangman implements IHangman{
         }
         else if(!((c>= 'a' && c<= 'z') || (c>= 'A' && c<= 'Z')))
         {
-            System.out.println("this character is taken");
+            System.out.println("this is not character");
             return String.valueOf(estimaatedSecretWord);
         }
         else
