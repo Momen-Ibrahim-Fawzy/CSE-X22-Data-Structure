@@ -52,6 +52,8 @@ public class HangmanTest {
         assertNotNull(h.guess(random.charAt(rnd)));
         //taken character
         assertEquals(h.getEstimaatedSecretWord(),h.guess(random.charAt(rnd)));
+        //NOT character
+        assertEquals(h.getEstimaatedSecretWord(),h.guess('*'));
         //return the estimated secret word
         assertEquals(h.getEstimaatedSecretWord(), h.guess(null));
         //buggy word
