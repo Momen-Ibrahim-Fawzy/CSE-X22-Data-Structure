@@ -86,60 +86,68 @@ public class PlayersFinder implements IPlayersFinder {
         return photo;
     }
     public java.awt.Point[] findPlayers(String[] photo, int team, int threshold){
-        char[][]picture=new char[photo.length][photo[0].length()];
-        for(int i=0;i<photo.length;i++){
-            for (int j=0;j<photo[0].length();j++){
-                if(Character.getNumericValue( photo[i].charAt(j))==team) {
-                    picture[i][j] = photo[i].charAt(j);
+        if (photo.length != 0) {
+            char[][] picture = new char[photo.length][photo[0].length()];
+            for (int i = 0; i < photo.length; i++) {
+                for (int j = 0; j < photo[0].length(); j++) {
+                    if (Character.getNumericValue(photo[i].charAt(j)) == team) {
+                        picture[i][j] = photo[i].charAt(j);
+                    } else
+                        picture[i][j] = '-';
                 }
-                else
-                    picture[i][j] ='-';
             }
-        }
-        int k=(photo.length*photo[0].length())/((int)Math.ceil((double)threshold/(2*2)));
-        int centerPoints[][]=new int [k][2];
-        k=0;
-        for(int i=0;i<photo.length;i++){
-            for (int j=0;j<photo[0].length();j++){
+            int k = (photo.length * photo[0].length()) / ((int) Math.ceil((double) threshold / (2 * 2)));
+            int centerPoints[][] = new int[k][2];
+            k = 0;
+            for (int i = 0; i < photo.length; i++) {
+                for (int j = 0; j < photo[0].length(); j++) {
                     numOfPixels = 0;
-                    xMin=0;xMax=0;yMin=0;yMax=0;
-                    if (Character.getNumericValue(picture[i][j])==team) {
-                        picture[i][j]='-';
+                    xMin = 0;
+                    xMax = 0;
+                    yMin = 0;
+                    yMax = 0;
+                    if (Character.getNumericValue(picture[i][j]) == team) {
+                        picture[i][j] = '-';
                         numOfPixels++;
-                        xMin=i;xMax=i;yMin=j;yMax=j;
-                        int temper[] = new int [2];
-                        temper=ceckBorders(picture, i, j, team, ((int)Math.ceil((double)threshold/(2*2))));
-                        if (temper[0] != 0 && temper[1]!= 0) {
+                        xMin = i;
+                        xMax = i;
+                        yMin = j;
+                        yMax = j;
+                        int temper[] = new int[2];
+                        temper = ceckBorders(picture, i, j, team, ((int) Math.ceil((double) threshold / (2 * 2))));
+                        if (temper[0] != 0 && temper[1] != 0) {
                             centerPoints[k] = temper;
                             photo = newPhoto(temp);
                             k++;
                         }
                     }
-            }
-        }
-
-        Point[] pointsOut=new Point[k];
-        for (int i=0;i<k;i++){
-            pointsOut[i]=new Point(0,0);
-        }
-        int j=0;
-        for (int i=0;i<k;i++){
-            if (centerPoints[i][0]!=0&&centerPoints[i][1]!=0) {
-                //pointsOut[j].
-                pointsOut[j].setLocation (centerPoints[i][1],centerPoints[i][0]);
-                j++;
-            }
-        }
-        Point tempo= new Point(0,0);
-        for (int i=0;i<k;i++){
-            for (j=0;j<k-1;j++){
-                if (pointsOut[j].getX()>pointsOut[j+1].getX()){
-                    tempo=pointsOut[j+1];
-                    pointsOut[j+1]=pointsOut[j];
-                    pointsOut[j]=tempo;
                 }
             }
-        }
-        return pointsOut;
+
+            Point[] pointsOut = new Point[k];
+            for (int i = 0; i < k; i++) {
+                pointsOut[i] = new Point(0, 0);
+            }
+            int j = 0;
+            for (int i = 0; i < k; i++) {
+                if (centerPoints[i][0] != 0 && centerPoints[i][1] != 0) {
+                    //pointsOut[j].
+                    pointsOut[j].setLocation(centerPoints[i][1], centerPoints[i][0]);
+                    j++;
+                }
+            }
+            Point tempo = new Point(0, 0);
+            for (int i = 0; i < k; i++) {
+                for (j = 0; j < k - 1; j++) {
+                    if (pointsOut[j].getX() > pointsOut[j + 1].getX()) {
+                        tempo = pointsOut[j + 1];
+                        pointsOut[j + 1] = pointsOut[j];
+                        pointsOut[j] = tempo;
+                    }
+                }
+            }
+            return pointsOut;
+        } else
+            return null;
     }
 }
