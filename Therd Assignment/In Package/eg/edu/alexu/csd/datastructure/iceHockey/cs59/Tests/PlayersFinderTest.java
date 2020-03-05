@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.datastructure.iceHockey.cs59.Tests;
+
 import eg.edu.alexu.csd.datastructure.iceHockey.cs59.classes.PlayersFinder;
+
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -142,6 +144,11 @@ class PlayersFinderTest {
         for (int i = 0; i < expected10.length; i++) {
             assertEquals(expected10[i],k.findPlayers(photo10,team10,threshold10)[i]);
         }
+        String[] photo11 =new String[0];
+        int team11 = 5;
+        int threshold11 = 3;
+        //thre is no players in the photo
+        assertNull(k.findPlayers(photo11,team11,threshold11));
     }
 
 }
