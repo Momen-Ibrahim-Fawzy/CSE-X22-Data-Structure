@@ -1,6 +1,6 @@
 package eg.edu.alexu.csd.datastructure.queue;
 
-public class arrayBasedQueue implements IArrayBased{
+public class arrayBasedQueue implements IQueue, IArrayBased{
     private int f;//pointer to the front of the queue in the array.
     private int r;//pointer to the rear(element after the end of the end) of the queue in the array.
     private Object []qArr;//the array where the queue is stored in.
