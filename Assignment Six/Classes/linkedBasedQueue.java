@@ -1,6 +1,6 @@
 package eg.edu.alexu.csd.datastructure.queue;
 
-public class linkedBasedQueue implements ILinkedBased{
+public class linkedBasedQueue implements IQueue, ILinkedBased{
     SingleLinkedList.SingleLinkedListNode head;//work as a pointer to the head of the queue
     SingleLinkedList.SingleLinkedListNode tail;//work as a pointer to the tail of the queue
     int size;//the size of the queue
